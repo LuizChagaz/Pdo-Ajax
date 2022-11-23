@@ -20,7 +20,7 @@
         $conn = new PDO("mysql:dbname=$db; host=$host; charset=utf8", $user, $pass);
 
     ?>
-    <form>
+    <form method="POST">
         <div class="container">
             <div class="row">
                 <div class="col-sm input-group mb-3">
@@ -49,8 +49,21 @@
                 </div>
             </div>
         </div>
+        <button id="entrar">entrar</button>
     </form>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script>
+        function pageload(){
+            const buttons = document.querySelectorAll("#entrar")
+            for (const button of buttons) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                window.alert("foi")
+            })
+            }
+        }
+        window.onload = pageload;
+    </script>
 </body>
 </html>
