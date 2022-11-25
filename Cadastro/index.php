@@ -19,6 +19,7 @@
 
         $conn = new PDO("mysql:dbname=$db; host=$host; charset=utf8", $user, $pass);
 
+        $dados = $conn->query("SELECT Nome, Rua, Nome_do_Pai, Nome_da_Mae FROM pessoa");
     ?>
     <form id="formi" method="POST">
         <div class="container">
@@ -52,6 +53,25 @@
         <div id="msg"></div>
         <button id="entrar">entrar</button>
     </form>
+    <div>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Rua</th>
+                <th>Nome do Pai</th>
+                <th>Nome da Mãe</th>
+</tr>
+            <?php  foreach ($dados as $key => $value) {?>
+            <tr>
+                <th><?php echo $value["Nome"]?></th>
+                <th><?php echo $value["Rua"]?></th>
+                <th><?php echo $value["Nome_do_Pai"]?></th>
+                <th><?php echo $value["Nome_da_Mae"]?></th>
+            </tr>
+            <?php }?>
+        </table>
+        
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
@@ -62,15 +82,12 @@
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 var form = document.querySelector("#formi");
-                window.alert($("#formi").serialize());
                 $.ajax({
                     url: "inserir.php",
                     method: "post",
                     data: $("#formi").serialize(),
                     dataType: "text",
-                    success: function(msg){
-                        $('msg').text(msg);
-                        window.alert("foi2")
+                    success: function(){
                     }
                 })
             })
